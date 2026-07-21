@@ -1,98 +1,89 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Link } from "expo-router";
+import { useContext } from "react";
+import { Pressable, ScrollView, Text, View } from 'react-native';
+import { AppContext } from "../_layout";
+import { globalStyles } from '../styles/globalStyles';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it - Lukasz again 20260716</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const { levelcounter3, setLevelcounter3 } = useContext(AppContext)!;
+  //added "!" (quick fix) it is for the states to not be null (I do not etirely understand that)
+  //everything works but this solution removes a red highlight on levelcounter3...
+
+  return (
+    <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
+      <ScrollView style={globalStyles.settingsContainer}>
+        <Text style={globalStyles.landingHeader}>Play & Learn Languages Faster</Text>
+        <View style={globalStyles.stylePara}>
+          <View style={globalStyles.funContainer}>
+            <Text style={{fontSize:24, textAlign:'center'}}>
+                This is a Google Play moblie app (MJE) by Lukasz Galik as part of Honours Project at Edinburgh Napier University.
+                It is an easy way to learn languages subconsciously. Learn languages on your mobile device even abroad, 
+                traveling by train or plane - offline!
+            </Text>
+
+          </View>
+        </View>
+        <View style={globalStyles.startBtn}>
+          <Link href="/(tabs)/selection" asChild>
+            <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0)}}>
+              <Text style={globalStyles.buttonText}>START</Text>
+            </Pressable>
+          </Link>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+// const styles = StyleSheet.create({
+//   settingsContainer: {
+//     backgroundColor: "orange"
+//     // animation: slowFocus 1s linear;
+//   },
+//   landingHeader: {
+//     fontSize:48, 
+//     textAlign:'center',
+//     marginTop:50,
+//     color:'#ffffff',
+//     textShadowColor: 'black',
+//     textShadowOffset: { width: 2, height: 2 },
+//   },
+//   stylePara: {
+//     // paddingTop:60,
+//     padding:20,
+//     marginTop:60,
+//     maxWidth:900,
+//     marginLeft:'auto',
+//     marginRight:'auto',
+//     backgroundColor: 'white',
+//     borderWidth:3,
+//     borderColor:'black',
+    
+    
+//   },
+//   funContainer: {
+
+//   },
+//   startBtn: {
+//     paddingTop:60,
+//     minWidth:300,
+//     marginLeft:'auto',
+//     marginRight:'auto',
+//   },
+//   button: {
+//     // backgroundColor: '#3498db',
+//     backgroundColor: 'green',
+//     paddingVertical: 12,
+//     paddingHorizontal: 20,
+//     borderRadius: 8,
+//     alignItems: 'center',
+//   },
+//   buttonText: {
+//     color: 'white',
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//   },
+
+// });
