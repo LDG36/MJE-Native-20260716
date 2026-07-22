@@ -11,7 +11,7 @@ import german from '../../assets/flags/GermanFlag.webp';
 import polish from '../../assets/flags/PolishFlag.webp';
 import spanish from '../../assets/flags/SpanishFlag.webp';
 
-const selection = () => {
+export default function Selection() {
 
     const { selectedLangs, setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
     //for some reason it does not like "!" like in index.tsx???!!!
@@ -65,7 +65,7 @@ const selection = () => {
         }
             setSelectedLangs(selected);
             setModeOfTheBoard(Number(mode));     
-            // navigate('/gameboard_x2', { });
+            // navigate('/gameboard_x2', { }); //included in a button
     }
 
   return (
@@ -145,5 +145,4 @@ const selection = () => {
   )
 }
 
-export default selection
 
