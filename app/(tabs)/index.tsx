@@ -12,7 +12,8 @@ export default function HomeScreen() {
   //everything works but this solution removes a red highlight on levelcounter3...
 
   return (
-    <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
+    // <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
+    <View>
       <ScrollView style={globalStyles.settingsContainer}>
         <Text style={globalStyles.landingHeader}>Play & Learn Languages Faster</Text>
         <View style={globalStyles.stylePara}>

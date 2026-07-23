@@ -68,34 +68,52 @@ export default function Selection() {
             // navigate('/gameboard_x2', { }); //included in a button
     }
 
+    function handleX3() {
+        if (selected.length !== 3) {
+            setValidationMsg("For option 3x please select three flags");
+            setMsgKey(prev => prev + 1); 
+            return;
+        }
+
+        setSelectedLangs(selected);
+        setModeOfTheBoard(Number(mode));
+
+    }
+
+    function handleX4() {
+        if (selected.length !== 4) {
+            setValidationMsg("For option 4x please select four flags");
+            setMsgKey(prev => prev + 1); 
+            return;
+        }
+
+        setSelectedLangs(selected);
+        setModeOfTheBoard(Number(mode));
+
+
+    }
+
+
+
   return (
-    <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
+    // <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
+    <View>
       <ScrollView style={globalStyles.settingsContainer}>
         <Text style={globalStyles.landingHeader}>Settings</Text>
 
         <View style={globalStyles.startBtn}>
           <Link href="/(tabs)/" asChild>
             <Pressable style={globalStyles.button} onPress={()=>{alert(english, polish, french, german, spanish)}}>
-              <Text style={globalStyles.buttonText}>START</Text>
-            </Pressable>
-          </Link>
-        </View>
-
-        <View style={globalStyles.startBtn}>
-          <Link href="/(tabs)/" asChild>
-            <Pressable style={globalStyles.button} onPress={()=>{alert("english")}}>
-              <Text style={globalStyles.buttonText}>Alert Image</Text>
+              <Text style={globalStyles.buttonText}>Back to Start</Text>
             </Pressable>
           </Link>
         </View>
 
         <View>
 
-            <Text>Settings</Text>
-
-            <View>
+            <View style={{   marginTop:60, justifyContent: 'center', alignItems: 'center'}}>
             
-                <Link href="/(tabs)/gameboard_x2" asChild>
+                <Link href="/(tabs)/gameboard_x2" asChild style={{marginTop:20, maxWidth:160}}>
                     <Pressable style={globalStyles.button} onPress={()=>{handleX2();}}>
                         <Text style={globalStyles.buttonText}>Game x2</Text>
                     </Pressable>
@@ -105,6 +123,18 @@ export default function Selection() {
                 {/* <button onClick={handleX3} className="startBtn_x2x3x4"><Text>x3</Text></button>
                 <button onClick={handleX4} className="startBtn_x2x3x4"><Text>x4</Text></button> */}
 
+
+                <Link href="/(tabs)/gameboard_x3" asChild style={{marginTop:20, maxWidth:160}}>
+                    <Pressable style={globalStyles.button} onPress={()=>{handleX3();}}>
+                        <Text style={globalStyles.buttonText}>Game x3</Text>
+                    </Pressable>
+                </Link>
+
+                <Link href="/(tabs)/gameboard_x4" asChild style={{marginTop:20, maxWidth:160}}>
+                    <Pressable style={globalStyles.button} onPress={()=>{handleX4();}}>
+                        <Text style={globalStyles.buttonText}>Game x4</Text>
+                    </Pressable>
+                </Link>
 
             </View>
 

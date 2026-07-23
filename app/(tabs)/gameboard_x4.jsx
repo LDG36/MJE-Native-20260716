@@ -1,6 +1,9 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+//import React from 'react'
+import { ScrollView } from 'react-native';
 // import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+//import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
 // import { globalStyles } from '../styles/globalStyles';
@@ -9,8 +12,7 @@ import { Dimensions } from "react-native";
 import Card from './card';
 const SCREEN_SIZE = (Dimensions.get("window").width)-20;
 
-
-export default function Gameboard_x2() {
+export default function Gameboard_x4() {
 
     //Need to move that to REDUX!!!
     const { levelcounter3, setLevelcounter3, selectedLangs,
@@ -52,87 +54,51 @@ export default function Gameboard_x2() {
       return;
       }
 
-      const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/2));
+      const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/4));
       setItems(freshItems);
 
-    }, [levelcounter, totalLevels]);  //OLD: [levelcounter, totalLevels, navigate]); 
+    }, [levelcounter, totalLevels]);  //OLD: [levelcounter, totalLevels, navigate]);
     
-
     function vanishCheck(id)
     {
         const statExist = items[id].stat.includes('vanish');
         return statExist;
     }
-    
-    //   const [prevprev, setPrevprev] = useState(-1);
-    const [prev, setPrev] = useState(-2);
+
+    const [prevprevprev, setPrevprevprev] = useState(-1);
+    const [prevprev, setPrevprev] = useState(-2);
+    const [prev, setPrev] = useState(-3);
     const [disabled, setDisabled] = useState(false);
     const [moves, setMoves] = useState(0);
 
-    //Timer related! ------------------------------------------------------
-          //---------------------------------------------
-            const [time, setTime] = useState(0);        // seconds
-            const [isRunning, setIsRunning] = useState(false);
-            const timerRef = useRef(null);
-            // // Start the timer
-            // const startTimer = () => {
-            //     if (timerRef.current) return; // prevent multiple intervals
-        
-            //     setIsRunning(true);
-            //     timerRef.current = setInterval(() => {
-            //     setTime(prev => prev + 10);
-            //     }, 10);
-            // };
-            // // Stop the timer
-            // const stopTimer = () => {
-            //     clearInterval(timerRef.current);
-            //     timerRef.current = null;
-            //     setIsRunning(false);
-            // };
-            // // Reset the timer
-            // const resetTimer = () => {
-            //     stopTimer();
-            //     setTime(0);
-            // };
-            // // Format time as MM:SS.mmm
-            // const formatTime = (ms) => {
-            //     const minutes = Math.floor(ms / 60000);
-            //     const seconds = Math.floor((ms % 60000) / 1000);
-            //     // const milliseconds = ms % 1000;
-            //     const hundredths = Math.floor((ms % 1000) / 10);
-        
-        
-            //     return (
-            //     String(minutes).padStart(2, "0") + ":" +
-            //     String(seconds).padStart(2, "0") + "." +
-            //     String(hundredths).padStart(2, "0")
-            //     );
-            // };
-          //Time related--------------------------------------------------------------
-
-        function checkTwo(current)
+    function checkFour(current)
           {
               setDisabled(true);  
     
-              if(items[current].id == items[prev].id )
+              if(items[current].id == items[prev].id && items[current].id == items[prevprev].id && items[current].id == items[prevprevprev].id )
               {
                 
                 items[current].stat = "correct";
+                items[prevprev].stat = "correct";
                 items[prev].stat = "correct";
+                items[prevprevprev].stat = "correct";
                 setItems([...items])            
     
                 setTimeout(()=>{
-                  items[current].stat = "vanish";
-                  items[prev].stat = "vanish";
-                  setItems([...items]);
-                  setPrev(-2);
+                  items[current].stat = "vanish"
+                  items[prevprev].stat = "vanish"
+                  items[prev].stat = "vanish"
+                  items[prevprevprev].stat = "vanish"
+                  setItems([...items])
+                  setPrev(-3)
+                  setPrevprev(-2)
+                  setPrevprevprev(-1)
     
                   //important code - level finish
                   if (items.every(item => item.stat.includes("vanish"))) {
-                //   navigate('/nextboard_x2', {state: {moves, time} });
-                  router.push({pathname: "/nextboard_x2",params: { moves, time }});
-                  // stopTimer();
-                  // resetTimer();
+                  navigate('/nextboard_x4', {state: {moves, time} });
+                //   stopTimer();
+                //   resetTimer();
                   }
     
                   setDisabled(false); 
@@ -140,38 +106,71 @@ export default function Gameboard_x2() {
               }
               else{
                 items[current].stat = "wrong";
+                items[prevprev].stat = "wrong";
                 items[prev].stat = "wrong";
+                items[prevprevprev].stat = "wrong"
                 setItems([...items])
     
                 setTimeout(()=>{
                     items[current].stat = ""
+                    items[prevprev].stat = ""
                     items[prev].stat = ""
-                    setPrev(-2)
-                    setDisabled(false)
-                    setItems([...items]) 
+                    items[prevprevprev].stat = ""
+                    setItems([...items])
+                    setPrev(-3)
+                    setPrevprev(-2)
+                    setPrevprevprev(-1)
+                    setDisabled(false); 
                 },3000)
               }
-          }
+            }
 
-           function handleClick(id){
+        function handleClick(id){
                 if((!vanishCheck(id))){
-                  if(prev == -2)
+                  if(prev == -3)
                   {    
-                    items[id].stat = 'active';
-                    setItems([...items]);
-                    setPrev(id);
+                    items[id].stat = 'active'
+                    setItems([...items])
+                    setPrev(-2);
+                    setPrevprev(-1);
+                    setPrevprevprev(id);
                     // startTimer();
                     
                   }
+                  else if(prev == -2)
+                  {
+                    if(id === prevprevprev){return}
+    
+                    items[id].stat = 'active'
+                    setItems([...items])
+                    setPrev(-1);
+                    setPrevprev(id);
+                    
+                  }
+                  else if(prev == -1)
+                  {
+
+                    if(id === prevprev || id === prevprevprev){return}
+    
+                    items[id].stat = 'active'
+                    setItems([...items])
+                    setPrev(id);
+
+                  }
                   else{
     
-                    if(id === prev){return}
+                    if(id === prev || id === prevprev || id === prevprevprev ){return}
+    
                     setMoves(moves+1);
-                    checkTwo(id);
+                    //items[id].stat = 'card3'
+                    checkFour(id);
                     
                   }
                 }
           }
+    
+    
+
   return (
     // <ScrollView style={globalStyles.settingsContainer}>  margin:5
     <ScrollView style={{backgroundColor:"orange"}}>
@@ -195,7 +194,7 @@ export default function Gameboard_x2() {
 }
 
 const styles = StyleSheet.create({
-  grid: {
+      grid: {
     //flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
@@ -206,4 +205,4 @@ const styles = StyleSheet.create({
     // marginLeft:40,
     //maxWidth:"SCREEN_SIZE",
   },
-});
+})

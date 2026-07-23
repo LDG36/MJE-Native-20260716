@@ -1,6 +1,10 @@
 // import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 // import { useState } from 'react';
+import { Dimensions } from "react-native";
+const CARD_SIZE = (Dimensions.get("window").width / 3)-20; //this loads the window size only at the start!!!
+//const { width } = useWindowDimensions();    <=causes crash sth about hooks...
+//const DYN_CARD_SIZE = width / 3;
 
 export default function Card({item, id, handleClick, disabled}) {
 
@@ -23,12 +27,12 @@ export default function Card({item, id, handleClick, disabled}) {
                 };
             };      }}>
           <Text style={[
-          item.stat === "active" ? styles.unHideText : styles.hideText   ]}>
+          item.stat === "active" ? styles.unHideText : styles.hideText,
+              item.stat === "wrong" && styles.unHideText,
+              item.stat === "correct" && styles.unHideText,   ]}>
               {item.text}{item.icon}
           </Text>{/* {item.id} */}
         </Pressable>
-
-      <Text>card</Text>
     </View>
   )
 }
@@ -41,11 +45,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight:40,
-    maxWidth:120,
+    //maxWidth:120,
+    //width: "33%",
+    width:CARD_SIZE,
+    //width:DYN_CARD_SIZE,
+    height:60,
+    // aspectRatio: 8,
+    // margin: 5,
   },
 
   hideText: {
-    opacity: 0.5,
+    opacity: 0,
   },
 
 // .card span{

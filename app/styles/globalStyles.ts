@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   settingsContainer: {
-    backgroundColor: "orange"
+    backgroundColor: "orange",
+    height:2000,
     // animation: slowFocus 1s linear;
   },
   landingHeader: {
@@ -14,19 +15,22 @@ export const globalStyles = StyleSheet.create({
     textShadowOffset: { width: 2, height: 2 },
   },
   stylePara: {
-    // paddingTop:60,
-    padding:20,
-    marginTop:60,
-    maxWidth:900,
-    marginLeft:'auto',
-    marginRight:'auto',
-    backgroundColor: 'white',
-    borderWidth:3,
-    borderColor:'black',
-    
+
+    marginLeft:"auto",
+    marginRight:"auto",
     
   },
   funContainer: {
+
+        // paddingTop:60,
+    padding:20,
+    marginTop:60,
+    maxWidth:900,
+    marginLeft:50,
+    marginRight:50,
+    backgroundColor: 'white',
+    borderWidth:3,
+    borderColor:'black',
 
   },
   startBtn: {
