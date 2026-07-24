@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
+//import { useRouter } from "expo-router";
 
 // const english = require('../../assets/flags/BritishFlag.webp');
 import english from '../../assets/flags/BritishFlag.webp';
@@ -16,7 +17,7 @@ export default function Selection() {
     const { selectedLangs, setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
     //for some reason it does not like "!" like in index.tsx???!!!
 
-    const [selected, setSelected] = useState(["english","spanish"]);
+    const [selected, setSelected] = useState(["english","spanish","german","polish"]);
     const [mode, setMode] = useState(12);
 
     const flagMap = {
@@ -90,6 +91,9 @@ export default function Selection() {
         setSelectedLangs(selected);
         setModeOfTheBoard(Number(mode));
 
+        //router.push({pathname: "/finish",params: { moves, time }});
+        //router.push({pathname: "/(tabs)/gameboard_x4"});
+
 
     }
 
@@ -111,9 +115,9 @@ export default function Selection() {
 
         <View>
 
-            <View style={{   marginTop:60, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop:60, justifyContent: 'center', alignItems: 'center'}}>
             
-                <Link href="/(tabs)/gameboard_x2" asChild style={{marginTop:20, maxWidth:160}}>
+                <Link href="/(tabs)/gameboard_x2" asChild style={{marginTop:20, maxWidth:160, marginLeft:20, marginRight:20,}}>
                     <Pressable style={globalStyles.button} onPress={()=>{handleX2();}}>
                         <Text style={globalStyles.buttonText}>Game x2</Text>
                     </Pressable>
@@ -124,13 +128,13 @@ export default function Selection() {
                 <button onClick={handleX4} className="startBtn_x2x3x4"><Text>x4</Text></button> */}
 
 
-                <Link href="/(tabs)/gameboard_x3" asChild style={{marginTop:20, maxWidth:160}}>
+                <Link href="/(tabs)/gameboard_x3" asChild style={{marginTop:20, maxWidth:160, marginLeft:20, marginRight:20,}}>
                     <Pressable style={globalStyles.button} onPress={()=>{handleX3();}}>
                         <Text style={globalStyles.buttonText}>Game x3</Text>
                     </Pressable>
                 </Link>
 
-                <Link href="/(tabs)/gameboard_x4" asChild style={{marginTop:20, maxWidth:160}}>
+                <Link href="/(tabs)/gameboard_x4" asChild style={{marginTop:20, maxWidth:160,  marginLeft:20, marginRight:20,}}>
                     <Pressable style={globalStyles.button} onPress={()=>{handleX4();}}>
                         <Text style={globalStyles.buttonText}>Game x4</Text>
                     </Pressable>

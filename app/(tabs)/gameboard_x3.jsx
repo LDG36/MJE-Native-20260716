@@ -2,11 +2,11 @@ import { StyleSheet, View } from 'react-native';
 //import React from 'react'
 import { ScrollView } from 'react-native';
 // import React from 'react';
-//import { useRef } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
 // import { globalStyles } from '../styles/globalStyles';
+import { useRouter } from "expo-router";
 import { useContext } from "react";
 import { Dimensions } from "react-native";
 import Card from './card';
@@ -18,6 +18,8 @@ export default function Gameboard_x3() {
     const { levelcounter3, setLevelcounter3, selectedLangs,
          setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
     const levelcounter = levelcounter3;
+
+    const router = useRouter();
 
     const firstLang = Object.keys(levelsData)[0];
     const totalLevels = Object.keys(levelsData[firstLang]).length;
@@ -50,7 +52,7 @@ export default function Gameboard_x3() {
 
       if (levelcounter >= getTotalLevels()) {
         //   navigate("/finish", {state: {moves, time}});
-      router.push({pathname: "/finish",params: { moves, time }});
+      router.push({pathname: "./finish",params: { moves, time }});
       return;
       }
 
@@ -69,6 +71,48 @@ export default function Gameboard_x3() {
     const [prev, setPrev] = useState(-2);
     const [disabled, setDisabled] = useState(false);
     const [moves, setMoves] = useState(0);
+
+        //Timer related! ------------------------------------------------------
+          //---------------------------------------------
+            const [time, setTime] = useState(0);        // seconds
+            const [isRunning, setIsRunning] = useState(false);
+            const timerRef = useRef(null);
+            // // Start the timer
+            // const startTimer = () => {
+            //     if (timerRef.current) return; // prevent multiple intervals
+        
+            //     setIsRunning(true);
+            //     timerRef.current = setInterval(() => {
+            //     setTime(prev => prev + 10);
+            //     }, 10);
+            // };
+            // // Stop the timer
+            // const stopTimer = () => {
+            //     clearInterval(timerRef.current);
+            //     timerRef.current = null;
+            //     setIsRunning(false);
+            // };
+            // // Reset the timer
+            // const resetTimer = () => {
+            //     stopTimer();
+            //     setTime(0);
+            // };
+            // // Format time as MM:SS.mmm
+            // const formatTime = (ms) => {
+            //     const minutes = Math.floor(ms / 60000);
+            //     const seconds = Math.floor((ms % 60000) / 1000);
+            //     // const milliseconds = ms % 1000;
+            //     const hundredths = Math.floor((ms % 1000) / 10);
+        
+        
+            //     return (
+            //     String(minutes).padStart(2, "0") + ":" +
+            //     String(seconds).padStart(2, "0") + "." +
+            //     String(hundredths).padStart(2, "0")
+            //     );
+            // };
+          //Time related--------------------------------------------------------------
+
 
     function checkThree(current)
           {
@@ -92,7 +136,7 @@ export default function Gameboard_x3() {
                   //important code - level finish
                   if (items.every(item => item.stat.includes("vanish"))) {
                   //navigate('/nextboard', {state: {moves, time, levelcounter} });
-                  navigate('/nextboard_x3', {state: {moves, time} });
+                  router.push({pathname: "./nextboard_x3",params: { moves, time }});
                 //   stopTimer();
                 //   resetTimer();
                   }

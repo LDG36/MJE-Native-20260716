@@ -27,7 +27,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   const [levelcounter3, setLevelcounter3] = useState(0);
-  const [selectedLangs, setSelectedLangs] = useState(["english","spanish"]);
+  const [selectedLangs, setSelectedLangs] = useState(["english","spanish","german","polish"]);
   const [modeOfTheBoard, setModeOfTheBoard] = useState(12);
 
   return (

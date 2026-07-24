@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
 // import { globalStyles } from '../styles/globalStyles';
+import { useRouter } from "expo-router";
 import { useContext } from "react";
 import { Dimensions } from "react-native";
 import Card from './card';
@@ -16,6 +17,8 @@ export default function Gameboard_x2() {
     const { levelcounter3, setLevelcounter3, selectedLangs,
          setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
     const levelcounter = levelcounter3;
+
+    const router = useRouter();
 
     const firstLang = Object.keys(levelsData)[0];
     const totalLevels = Object.keys(levelsData[firstLang]).length;
@@ -48,14 +51,15 @@ export default function Gameboard_x2() {
 
       if (levelcounter >= getTotalLevels()) {
         //   navigate("/finish", {state: {moves, time}});
-      router.push({pathname: "/finish",params: { moves, time }});
+      
+      router.push({pathname: "./finish",params: { moves, time }});
       return;
       }
 
       const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/2));
       setItems(freshItems);
 
-    }, [levelcounter, totalLevels]);  //OLD: [levelcounter, totalLevels, navigate]); 
+    }, [levelcounter, totalLevels, router]);  //OLD: [levelcounter, totalLevels, navigate]); 
     
 
     function vanishCheck(id)
@@ -130,7 +134,9 @@ export default function Gameboard_x2() {
                   //important code - level finish
                   if (items.every(item => item.stat.includes("vanish"))) {
                 //   navigate('/nextboard_x2', {state: {moves, time} });
-                  router.push({pathname: "/nextboard_x2",params: { moves, time }});
+
+                    router.push({pathname: "./nextboard_x2",params: { moves, time }});
+                  
                   // stopTimer();
                   // resetTimer();
                   }
