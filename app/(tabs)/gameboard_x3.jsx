@@ -1,14 +1,13 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 //import React from 'react'
 import { ScrollView } from 'react-native';
 // import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRouter } from "expo-router";
+import { useContext, useEffect, useRef, useState } from 'react';
+import { Dimensions } from "react-native";
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
-// import { globalStyles } from '../styles/globalStyles';
-import { useRouter } from "expo-router";
-import { useContext } from "react";
-import { Dimensions } from "react-native";
+import { globalStyles } from '../styles/globalStyles';
 import Card from './card';
 const SCREEN_SIZE = (Dimensions.get("window").width)-20;
 
@@ -16,7 +15,7 @@ export default function Gameboard_x3() {
 
     //Need to move that to REDUX!!!
     const { levelcounter3, setLevelcounter3, selectedLangs,
-         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
+         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
     const levelcounter = levelcounter3;
 
     const router = useRouter();
@@ -59,7 +58,7 @@ export default function Gameboard_x3() {
       const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/3));
       setItems(freshItems);
 
-    }, [levelcounter, totalLevels]);  //OLD: [levelcounter, totalLevels, navigate]);
+    }, [levelcounter, totalLevels, refreshKey]);  //OLD: [levelcounter, totalLevels, navigate]);
     
     function vanishCheck(id)
     {
@@ -135,11 +134,14 @@ export default function Gameboard_x3() {
     
                   //important code - level finish
                   if (items.every(item => item.stat.includes("vanish"))) {
+                    router.push({pathname: "nextboard_x3"});
+                  }
                   //navigate('/nextboard', {state: {moves, time, levelcounter} });
-                  router.push({pathname: "./nextboard_x3",params: { moves, time }});
+                  //router.push({pathname: "./nextboard_x3",params: { moves, time }});
+                    
                 //   stopTimer();
                 //   resetTimer();
-                  }
+                  
     
                   setDisabled(false); 
                 },2000)
@@ -197,6 +199,7 @@ export default function Gameboard_x3() {
   return (
     // <ScrollView style={globalStyles.settingsContainer}>  margin:5
     <ScrollView style={{backgroundColor:"orange"}}>
+        <Text style={globalStyles.landingHeader}>Game x3</Text>
         <View style={[styles.grid,{marginTop:100}]}>
 
             {items.map((item, index) => (

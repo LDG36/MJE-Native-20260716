@@ -14,6 +14,8 @@ type AppContextType = {
   setSelectedLangs: React.Dispatch<React.SetStateAction<string[]>>;
   modeOfTheBoard: number;
   setModeOfTheBoard: React.Dispatch<React.SetStateAction<number>>;
+  refreshKey: number;
+  setRefreshKey: React.Dispatch<React.SetStateAction<number>>;
 };
 // export const AppContext = createContext(null);
 export const AppContext = createContext<AppContextType | null>(null);
@@ -27,13 +29,14 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   const [levelcounter3, setLevelcounter3] = useState(0);
-  const [selectedLangs, setSelectedLangs] = useState(["english","spanish","german","polish"]);
+  const [selectedLangs, setSelectedLangs] = useState(["english","spanish"]);
   const [modeOfTheBoard, setModeOfTheBoard] = useState(12);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AppContext.Provider value={{ levelcounter3, setLevelcounter3,
-         selectedLangs, setSelectedLangs, modeOfTheBoard, setModeOfTheBoard  }}>
+         selectedLangs, setSelectedLangs, modeOfTheBoard, setModeOfTheBoard, refreshKey, setRefreshKey  }}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />

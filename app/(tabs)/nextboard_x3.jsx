@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 //import React from 'react'
 import { Link } from "expo-router";
 import { Pressable } from 'react-native';
-import { ScrollView } from 'react-native-web';
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
 // import { globalStyles } from '../styles/globalStyles';
@@ -10,11 +9,11 @@ import { useRouter } from "expo-router";
 import { useContext } from "react";
 
 
-export default function nextboard_x3() {
+export default function Nextboard_x3() {
 
     //Need to move that to REDUX!!!
     const { levelcounter3, setLevelcounter3, selectedLangs,
-         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
+         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
 
     const router = useRouter();
 
@@ -23,7 +22,7 @@ export default function nextboard_x3() {
         {/* A Bug here!!!!!!!!!!! the repeat level does not load!!!!!!! */}
         <View style={globalStyles.startBtn}>
             <Link href="./gameboard_x3" asChild>
-            <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(levelcounter3)}}>
+            <Pressable style={globalStyles.button} onPress={()=>{[setLevelcounter3(levelcounter3), setRefreshKey(prev => prev + 1)]}}>
                 <Text style={globalStyles.buttonText}>Repeat</Text>
             </Pressable>
             </Link>

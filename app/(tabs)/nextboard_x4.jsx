@@ -11,7 +11,7 @@ export default function Nextboard_x4() {
 
     //Need to move that to REDUX!!!
     const { levelcounter3, setLevelcounter3, selectedLangs,
-         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
+         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
 
     const router = useRouter();
 
@@ -20,7 +20,7 @@ export default function Nextboard_x4() {
         {/* A Bug here!!!!!!!!!!! the repeat level does not load!!!!!!! */}
         <View style={globalStyles.startBtn}>
             <Link href="./gameboard_x4" asChild>
-            <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(levelcounter3)}}>
+            <Pressable style={globalStyles.button} onPress={()=>{[setLevelcounter3(levelcounter3), setRefreshKey(prev => prev + 1)]}}>
                 <Text style={globalStyles.buttonText}>Repeat</Text>
             </Pressable>
             </Link>

@@ -1,12 +1,11 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 // import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRouter } from "expo-router";
+import { useContext, useEffect, useRef, useState } from 'react';
+import { Dimensions } from "react-native";
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
-// import { globalStyles } from '../styles/globalStyles';
-import { useRouter } from "expo-router";
-import { useContext } from "react";
-import { Dimensions } from "react-native";
+import { globalStyles } from '../styles/globalStyles';
 import Card from './card';
 const SCREEN_SIZE = (Dimensions.get("window").width)-20;
 
@@ -15,7 +14,7 @@ export default function Gameboard_x2() {
 
     //Need to move that to REDUX!!!
     const { levelcounter3, setLevelcounter3, selectedLangs,
-         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard} = useContext(AppContext);
+         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
     const levelcounter = levelcounter3;
 
     const router = useRouter();
@@ -59,7 +58,7 @@ export default function Gameboard_x2() {
       const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/2));
       setItems(freshItems);
 
-    }, [levelcounter, totalLevels, router]);  //OLD: [levelcounter, totalLevels, navigate]); 
+    }, [levelcounter, totalLevels, router, refreshKey]);  //OLD: [levelcounter, totalLevels, navigate]); 
     
 
     function vanishCheck(id)
@@ -135,7 +134,9 @@ export default function Gameboard_x2() {
                   if (items.every(item => item.stat.includes("vanish"))) {
                 //   navigate('/nextboard_x2', {state: {moves, time} });
 
-                    router.push({pathname: "./nextboard_x2",params: { moves, time }});
+                    //router.push({pathname: "./nextboard_x2",params: { moves, time }});
+                    router.push({pathname: "nextboard_x2"});
+                  
                   
                   // stopTimer();
                   // resetTimer();
@@ -181,6 +182,7 @@ export default function Gameboard_x2() {
   return (
     // <ScrollView style={globalStyles.settingsContainer}>  margin:5
     <ScrollView style={{backgroundColor:"orange"}}>
+      <Text style={globalStyles.landingHeader}>Game x2</Text>
         <View style={[styles.grid,{marginTop:100}]}>
 
             {items.map((item, index) => (
