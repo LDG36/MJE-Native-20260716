@@ -1,10 +1,14 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 //import React from 'react'
 import { Link } from "expo-router";
 import { useContext } from "react";
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
 
+
+
+import { ScrollView } from 'react-native-web';
+import logo from '../../assets/logoVersion3.png';
 
     const formatTime = (ms) => 
     {
@@ -32,6 +36,16 @@ export default function Finish() {
     //         Completed - Back to Start
     //     </button>
     // </View>
+    <ScrollView style={{backgroundColor: "orange",}}>
+    <View  style={{ marginLeft:-30, marginTop:60, marginBottom:100, flexDirection: "row", flexWrap: "wrap", justifyContent: 'center', alignItems: 'center'}}>
+        <Link href="/" asChild>
+            <Pressable>
+                <Image resizeMode="contain" source={logo} style={{width:160, height:80 }} />
+            </Pressable>
+        </Link>
+
+        <Text style={globalStyles.landingHeader}>Finish</Text>
+    </View>
     <View style={globalStyles.startBtn}>
         <Link href="/(tabs)/" asChild>
         <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0)}}>
@@ -39,6 +53,7 @@ export default function Finish() {
         </Pressable>
         </Link>
     </View>
+    </ScrollView>
   )
 }
 

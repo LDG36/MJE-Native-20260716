@@ -1,21 +1,44 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 // import React from 'react';
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Dimensions } from "react-native";
+import { Dimensions, Image, Pressable } from "react-native";
+import logo from '../../assets/logoVersion3.png';
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
 import Card from './card';
 const SCREEN_SIZE = (Dimensions.get("window").width)-20;
 
+//------------------------Reloading the game on "Off-Focus"----------------------------------------
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
+//-----------------------------------------------------------------
+
+
 
 export default function Gameboard_x2() {
 
-    //Need to move that to REDUX!!!
-    const { levelcounter3, setLevelcounter3, selectedLangs,
-         setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
-    const levelcounter = levelcounter3;
+  //Need to move that to REDUX!!!
+const { levelcounter3, setLevelcounter3, selectedLangs,
+      setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
+const levelcounter = levelcounter3;
+
+//------------------------Reloading the game on "Off-Focus"----------------------------------------
+const resetGameboard = () => {
+  setSelectedLangs(["english","spanish"]);
+  setModeOfTheBoard(12);
+  setLevelcounter3(0);
+};
+
+    useFocusEffect(
+      useCallback(() => {
+        return () => {
+          resetGameboard();
+        };
+      }, [])
+    );
+//-----------------------------------------------------------------
 
     const router = useRouter();
 
@@ -182,8 +205,19 @@ export default function Gameboard_x2() {
   return (
     // <ScrollView style={globalStyles.settingsContainer}>  margin:5
     <ScrollView style={{backgroundColor:"orange"}}>
-      <Text style={globalStyles.landingHeader}>Game x2</Text>
-        <View style={[styles.grid,{marginTop:100}]}>
+
+        <View  style={{ marginLeft:-30, marginTop:60, marginBottom:10, flexDirection: "row", flexWrap: "wrap", justifyContent: 'center', alignItems: 'center'}}>
+          <Link href="/" asChild>
+            <Pressable>
+                <Image resizeMode="contain" source={logo} style={{width:160, height:80 }} />
+            </Pressable>
+          </Link>
+
+            <Text style={globalStyles.landingHeader}>Game x2</Text>
+        </View>
+
+
+        <View style={[styles.grid,{marginTop:40}]}>
 
             {items.map((item, index) => (
 

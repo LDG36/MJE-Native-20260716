@@ -2,14 +2,16 @@ import { StyleSheet, Text, View } from 'react-native';
 //import React from 'react'
 import { ScrollView } from 'react-native';
 // import React from 'react';
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useContext, useEffect, useRef, useState } from 'react';
-import { Dimensions } from "react-native";
+import { Dimensions, Image, Pressable } from "react-native";
 import levelsData from "../../data/levels_x18.json";
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
 import Card from './card';
 const SCREEN_SIZE = (Dimensions.get("window").width)-20;
+
+import logo from '../../assets/logoVersion3.png';
 
 export default function Gameboard_x3() {
 
@@ -199,8 +201,19 @@ export default function Gameboard_x3() {
   return (
     // <ScrollView style={globalStyles.settingsContainer}>  margin:5
     <ScrollView style={{backgroundColor:"orange"}}>
-        <Text style={globalStyles.landingHeader}>Game x3</Text>
-        <View style={[styles.grid,{marginTop:100}]}>
+
+        <View  style={{ marginLeft:-30, marginTop:60, marginBottom:10, flexDirection: "row", flexWrap: "wrap", justifyContent: 'center', alignItems: 'center'}}>
+          <Link href="/" asChild>
+            <Pressable>
+                <Image resizeMode="contain" source={logo} style={{width:160, height:80 }} />
+            </Pressable>
+          </Link>
+
+            <Text style={globalStyles.landingHeader}>Game x3</Text>
+        </View>
+
+
+        <View style={[styles.grid,{marginTop:40}]}>
 
             {items.map((item, index) => (
 

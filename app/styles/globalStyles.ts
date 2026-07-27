@@ -9,7 +9,7 @@ export const globalStyles = StyleSheet.create({
   landingHeader: {
     fontSize:48, 
     textAlign:'center',
-    marginTop:50,
+    marginTop:0,
     color:'#ffffff',
     textShadowColor: 'black',
     textShadowOffset: { width: 2, height: 2 },

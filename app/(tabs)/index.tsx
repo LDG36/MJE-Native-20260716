@@ -1,9 +1,10 @@
 import { Link } from "expo-router";
 import { useContext } from "react";
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
 
+import logo from '../../assets/logoVersion3.png';
 
 export default function HomeScreen() {
 
@@ -13,13 +14,22 @@ export default function HomeScreen() {
 
   return (
     // <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
-    <View>
+    
       <ScrollView style={globalStyles.settingsContainer}>
-        <Text style={globalStyles.landingHeader}>Play & Learn Languages Faster</Text>
+        <View  style={{ marginTop:60, flexDirection: "row", flexWrap: "wrap", justifyContent: 'center', alignItems: 'center'}}>
+          <Link href="./(tabs)/" asChild>
+            <Pressable onPress={() => {}}>
+                <Image resizeMode="contain" source={logo} style={{width:320, height:160 }} />
+            </Pressable>
+          </Link>
+
+            <Text style={globalStyles.landingHeader}>Play & Learn Languages Faster</Text>
+        </View>
+
         <View style={globalStyles.stylePara}>
           <View style={globalStyles.funContainer}>
             <Text style={{fontSize:24, textAlign:'center'}}>
-                This is a Google Play moblie app (MJE) by Lukasz Galik as part of Honours Project at Edinburgh Napier University.
+                This is a Google Play mobile app (MJE) by Lukasz Galik as part of Honours Project at Edinburgh Napier University.
                 It is an easy way to learn languages subconsciously. Learn languages on your mobile device even abroad, 
                 traveling by train or plane - offline!
             </Text>
@@ -34,7 +44,7 @@ export default function HomeScreen() {
           </Link>
         </View>
       </ScrollView>
-    </View>
+    
   );
 }
 
