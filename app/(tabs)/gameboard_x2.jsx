@@ -10,11 +10,30 @@ import { globalStyles } from '../styles/globalStyles';
 import Card from './card';
 const SCREEN_SIZE = (Dimensions.get("window").width)-20;
 
-//------------------------Reloading the game on "Off-Focus"----------------------------------------
-import { useFocusEffect } from '@react-navigation/native';
-import { useCallback } from 'react';
-//-----------------------------------------------------------------
 
+//------------------------Reloading the game on "Off-Focus"--20260728--------------------------------------
+//At the begining I thought it was not working (Copilot 3 solutions: off focus, useEffect, router.replace)
+//but I did apply this changes only to gameboard_x2 (so it could not work for x3 and x4)
+//final solution: added paramiter to useEffect (generateMultilingualLevel) in gameboard_x2x3x4 - it works
+//-----------------------------------------------------------------
+// import { useFocusEffect } from '@react-navigation/native';
+// import { useCallback } from 'react';
+//-----------------------------------------------------------------
+//------------------------Reloading the game on "Off-Focus"---(should be inside the component)-------------------------------------
+// const resetGameboard = () => {
+//   setSelectedLangs(["english","spanish"]);
+//   setModeOfTheBoard(12);
+//   setLevelcounter3(0);
+// };
+
+//     useFocusEffect(
+//       useCallback(() => {
+//         return () => {
+//           resetGameboard();
+//         };
+//       }, [])
+//     );
+//-----------------------------------------------------------------
 
 
 export default function Gameboard_x2() {
@@ -24,21 +43,7 @@ const { levelcounter3, setLevelcounter3, selectedLangs,
       setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, refreshKey, setRefreshKey} = useContext(AppContext);
 const levelcounter = levelcounter3;
 
-//------------------------Reloading the game on "Off-Focus"----------------------------------------
-const resetGameboard = () => {
-  setSelectedLangs(["english","spanish"]);
-  setModeOfTheBoard(12);
-  setLevelcounter3(0);
-};
 
-    useFocusEffect(
-      useCallback(() => {
-        return () => {
-          resetGameboard();
-        };
-      }, [])
-    );
-//-----------------------------------------------------------------
 
     const router = useRouter();
 
@@ -81,8 +86,11 @@ const resetGameboard = () => {
       const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/2));
       setItems(freshItems);
 
-    }, [levelcounter, totalLevels, router, refreshKey]);  //OLD: [levelcounter, totalLevels, navigate]); 
-    
+      //HERE - I use a useEffect with states as parameters to trigger a rerender on multiple levels - it works
+      //20260728 added "selectedLangs" and "modeOfTheBoard" because RN does not refresh like React.js
+      //refreshKey added some time ago to trigger "level repeat" - without it same levelcounter does not refresh! (card.jsx)
+    }, [levelcounter, selectedLangs, modeOfTheBoard,  totalLevels, router, refreshKey]);  //OLD: [levelcounter, totalLevels, navigate]); 
+    //you can check later what happens if you remove a levelcounter from here (so the level stays in a memory?)
 
     function vanishCheck(id)
     {
@@ -208,6 +216,8 @@ const resetGameboard = () => {
 
         <View  style={{ marginLeft:-30, marginTop:60, marginBottom:10, flexDirection: "row", flexWrap: "wrap", justifyContent: 'center', alignItems: 'center'}}>
           <Link href="/" asChild>
+            {/* old solution to refresh the settings */}
+            {/* <Pressable onPress={() => router.replace('/')}> */}
             <Pressable>
                 <Image resizeMode="contain" source={logo} style={{width:160, height:80 }} />
             </Pressable>

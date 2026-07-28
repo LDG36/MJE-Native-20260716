@@ -24,7 +24,9 @@ export default function Selection() {
     const [selected, setSelected] = useState(["english","spanish"]);
     const [mode, setMode] = useState(12);
 
-    const [isSelected, setIsSelected] = useState([]);
+    //supposed to be used in finding out which settings are selected - but I discovered I do not need that
+    //I used states: mode & selected.includes(lang) directly without needing a separate state...
+    //const [isSelected, setIsSelected] = useState([]);
 
     const flagMap = {
         english,

@@ -1,5 +1,6 @@
 import { Link } from "expo-router";
 import { useContext } from "react";
+//import { useContext, useEffect } from "react";
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { AppContext } from "../_layout";
 import { globalStyles } from '../styles/globalStyles';
@@ -8,9 +9,25 @@ import logo from '../../assets/logoVersion3.png';
 
 export default function HomeScreen() {
 
-  const { levelcounter3, setLevelcounter3 } = useContext(AppContext)!;
+  const { levelcounter3, setLevelcounter3, selectedLangs,
+      setSelectedLangs, modeOfTheBoard,  setModeOfTheBoard, } = useContext(AppContext)!;
   //added "!" (quick fix) it is for the states to not be null (I do not etirely understand that)
   //everything works but this solution removes a red highlight on levelcounter3...
+
+
+  //------------------------Reloading the game - but it does not work because it defaults the settings----------------------------------------
+  //---sorted by adding a states (below) to main useEffect inside gameboard_x2x3x4-----------20260728
+  //-------------------------------------------------------------------------------------
+  // const resetGameboard = () => {
+  //   setSelectedLangs(["english","spanish"]);
+  //   setModeOfTheBoard(12);
+  //   setLevelcounter3(0);
+  // };
+
+  // useEffect(() => {
+  // resetGameboard();
+  // }, []);
+  // //---------------------------------------------------------------
 
   return (
     // <View style={{flex:1, backgroundColor: "yellow",padding: 60}}>
@@ -38,6 +55,8 @@ export default function HomeScreen() {
         </View>
         <View style={globalStyles.startBtn}>
           <Link href="/(tabs)/selection" asChild>
+            {/* <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0); router.replace('/(tabs)/selection');}}> */}
+            {/* <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0);setSelectedLangs(["english","spanish"]);setModeOfTheBoard(12);}}> */}
             <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0)}}>
               <Text style={globalStyles.buttonText}>START</Text>
             </Pressable>

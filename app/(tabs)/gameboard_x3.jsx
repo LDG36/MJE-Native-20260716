@@ -60,7 +60,10 @@ export default function Gameboard_x3() {
       const freshItems = generateMultilingualLevel(selectedLangs ,levelcounter, (modeOfTheBoard/3));
       setItems(freshItems);
 
-    }, [levelcounter, totalLevels, refreshKey]);  //OLD: [levelcounter, totalLevels, navigate]);
+        //HERE - I use a useEffect with states as parameters to trigger a rerender on multiple levels - it works
+      //20260728 added "selectedLangs" and "modeOfTheBoard" because RN does not refresh like React.js
+      //refreshKey added some time ago to trigger "level repeat" - without it same levelcounter does not refresh!
+    }, [levelcounter,selectedLangs, modeOfTheBoard, router, totalLevels, refreshKey]);  //OLD: [levelcounter, totalLevels, navigate]);
     
     function vanishCheck(id)
     {
