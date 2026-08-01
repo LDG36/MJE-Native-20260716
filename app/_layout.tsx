@@ -4,7 +4,21 @@ import { StatusBar } from 'expo-status-bar';
 import { createContext, useState } from "react";
 import 'react-native-reanimated';
 
+
 import { useColorScheme } from '@/hooks/use-color-scheme';
+
+//This only works with default Android navigation (triangle, circle, square) not a development bottom nav
+//  import * as NavigationBar from "expo-navigation-bar";
+//  NavigationBar.setVisibilityAsync("hidden");
+
+// import { requireOptionalNativeModule } from 'expo';
+// // Safely access Expo's native developer menu preferences
+// const DevMenuPreferences = requireOptionalNativeModule('DevMenuPreferences');
+// if (__DEV__ && DevMenuPreferences) {
+//   DevMenuPreferences.setPreferencesAsync({
+//     showFloatingActionButton: false, // Hides the persistent dev tools panel/bubble
+//   });
+// }
 
 // LDG 20260720: it is worth to transform this to Redux in the final shape!!!
 type AppContextType = {
@@ -21,9 +35,10 @@ type AppContextType = {
 export const AppContext = createContext<AppContextType | null>(null);
 
 //this was before
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+// export const unstable_settings = {
+//   anchor: '(tabs)',
+// };
+
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -34,11 +49,14 @@ export default function RootLayout() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   return (
+    
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      
       <AppContext.Provider value={{ levelcounter3, setLevelcounter3,
          selectedLangs, setSelectedLangs, modeOfTheBoard, setModeOfTheBoard, refreshKey, setRefreshKey  }}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+          <Stack.Screen name="(home)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
         </Stack>
         <StatusBar style="auto" />

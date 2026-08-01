@@ -34,7 +34,7 @@ export default function HomeScreen() {
     
       <ScrollView style={globalStyles.settingsContainer}>
         <View  style={{ marginTop:60, flexDirection: "row", flexWrap: "wrap", justifyContent: 'center', alignItems: 'center'}}>
-          <Link href="./(tabs)/" asChild>
+          <Link href="./(home)/" asChild>
             <Pressable onPress={() => {}}>
                 <Image resizeMode="contain" source={logo} style={{width:320, height:160 }} />
             </Pressable>
@@ -54,7 +54,7 @@ export default function HomeScreen() {
           </View>
         </View>
         <View style={globalStyles.startBtn}>
-          <Link href="/(tabs)/selection" asChild>
+          <Link href="/(home)/selection" asChild>
             {/* <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0); router.replace('/(tabs)/selection');}}> */}
             {/* <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0);setSelectedLangs(["english","spanish"]);setModeOfTheBoard(12);}}> */}
             <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0)}}>

@@ -47,7 +47,7 @@ export default function Finish() {
         <Text style={globalStyles.landingHeader}>Finish</Text>
     </View>
     <View style={globalStyles.startBtn}>
-        <Link href="/(tabs)/" asChild>
+        <Link href="/(home)/" asChild>
         <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0)}}>
             <Text style={globalStyles.buttonText}>Completed - Back to Start</Text>
         </Pressable>

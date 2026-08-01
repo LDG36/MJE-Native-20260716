@@ -46,7 +46,9 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {},
+      "router": {"devtools": false},
+      "plugins": [
+      ["expo-navigation-bar", { "hidden": true }]],
       "eas": {
         "projectId": "06380f93-cbb3-4dea-8d48-9265554ed392"
       }
