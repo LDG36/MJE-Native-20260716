@@ -20,7 +20,11 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.dobromir7.MJENative20260716"
+      "package": "com.dobromir7.MJENative20260716",
+      "hardware": {
+        "touchscreen": true
+      },
+      "supportsTablet": true
     },
     "web": {
       "output": "static",

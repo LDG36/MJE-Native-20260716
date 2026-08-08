@@ -4,12 +4,12 @@ import { StatusBar } from 'expo-status-bar';
 import { createContext, useState } from "react";
 import 'react-native-reanimated';
 
-
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 //This only works with default Android navigation (triangle, circle, square) not a development bottom nav
 //  import * as NavigationBar from "expo-navigation-bar";
 //  NavigationBar.setVisibilityAsync("hidden");
+//20260808 - it works but it hides bar permamentaly and user cannot terminate the app/ or when it shows it stays
 
 // import { requireOptionalNativeModule } from 'expo';
 // // Safely access Expo's native developer menu preferences
@@ -47,6 +47,11 @@ export default function RootLayout() {
   const [selectedLangs, setSelectedLangs] = useState(["english","spanish"]);
   const [modeOfTheBoard, setModeOfTheBoard] = useState(12);
   const [refreshKey, setRefreshKey] = useState(0);
+
+  // removing the bottom bar - see code above
+  //   useEffect(() => {
+  //   NavigationBar.setVisibilityAsync("hidden");
+  // }, []);
 
   return (
     

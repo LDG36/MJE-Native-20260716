@@ -64,7 +64,19 @@ export default function Card({item, id, handleClick, disabled}) {
               item.stat === "active" ? styles.unHideText : styles.hideText,
               item.stat === "wrong" && styles.unHideText,
               item.stat === "correct" && styles.unHideText,   ]}>
-              {item.text}{item.icon}
+            
+            {/* 20260804 - Testing why sometimes icon disapears (for "an orange" only)
+            - I discovered that i cannot refresh my levels_x18.json file - to be investigated later */}
+  {/* {(() => {
+    console.log("Rendered text:", item.text);
+    console.log("Rendered icon:", item.icon);
+    console.log("Applied fontFamily:", 
+      (item.stat === "active" ? styles.unHideText.fontFamily : styles.hideText.fontFamily)
+    );
+    return null;
+  })()} */}
+
+              {item.text}{item.icon + "\uFE0F"}
           </Text>{/* {item.id} */}
         </Pressable>
     </View>

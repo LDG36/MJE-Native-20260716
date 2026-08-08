@@ -43,7 +43,7 @@ export default function HomeScreen() {
             <Text style={globalStyles.landingHeader}>Play & Learn Languages Faster</Text>
         </View>
 
-        <View style={globalStyles.stylePara}>
+        {/* <View style={globalStyles.stylePara}>
           <View style={globalStyles.funContainer}>
             <Text style={{fontSize:24, textAlign:'center'}}>
                 This is a Google Play mobile app (MJE) by Lukasz Galik as part of Honours Project at Edinburgh Napier University.
@@ -52,8 +52,8 @@ export default function HomeScreen() {
             </Text>
 
           </View>
-        </View>
-        <View style={globalStyles.startBtn}>
+        </View> */}
+        <View style={[globalStyles.startBtn, {marginBottom:100}]}>
           <Link href="/(home)/selection" asChild>
             {/* <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0); router.replace('/(tabs)/selection');}}> */}
             {/* <Pressable style={globalStyles.button} onPress={()=>{setLevelcounter3(0);setSelectedLangs(["english","spanish"]);setModeOfTheBoard(12);}}> */}
